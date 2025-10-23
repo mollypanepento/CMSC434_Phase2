@@ -1,0 +1,62 @@
+.device {
+    width: 640px;
+    height: 960px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+    background: whitesmoke;
+    overflow: hidden;
+    transform-origin: top left; 
+  }
+  
+.device-viewport .device {
+    transform: scale(0.6906);
+}
+
+
+  .device-viewport {
+    width: calc(640px * 0.6906);
+    height: calc(960px * 0.6906);
+    margin: 20px auto;
+  }
+  
+  header {
+    background-color: #a8bfa9;
+    display: flex;
+    align-items: center; /* Vertically centers the content */
+    justify-content: center;
+    height: 100px;
+    color: black;
+    font-size: 1.25rem
+  }
+
+  .tab-icon{
+    width: 40px;
+    height: 40px;
+  }
+  
+.tabbar{
+  overflow: hidden;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.tablink {
+    color: black;
+    background-color: #a8bfa9;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    text-align:center;
+    padding: 14px 16px;
+    font-size: 17px;
+    width: 20%;
+}
+  
+.tablink:hover {
+    background-color: #D3D3D3;
+}
+
+h1{
+  text-align: center;
+}
