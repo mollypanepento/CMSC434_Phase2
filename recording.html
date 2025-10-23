@@ -5,6 +5,141 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Record</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
+    <style>
+        body{
+
+        }
+        .device{
+            text-align: center;
+        }
+        .btns{
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            padding: 1rem;
+        }
+
+        .expense-button{
+            padding: 1rem;
+            font-size: 1.25rem;
+            background-color: #ff7d7d;
+            padding: 1rem;
+            margin-right: 2rem;
+            width: 200px;
+        }
+
+        .expense-button:hover {
+            background-color: #e8b5b5;   /* darker on hover */
+        }
+
+        .income-button{
+            padding: 1rem;
+            font-size: 1.25rem;
+            background-color: #81a969;
+            color: black;
+            margin-left: 2.5rem;
+            width: 200px;
+
+        }
+
+        .income-button:hover {
+            background-color: #c9d3b5;   /* darker on hover */
+        }
+
+        .cards{
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+
+        .card{
+            background: white;
+            border: 2px solid;
+            width: 250px;
+            padding: 1rem;
+            text-align: left;
+            border-radius: 4px;
+            font-size: 1.5rem;
+        }
+
+        .card.expenses{
+            border-color: #ff7d7d;
+            border-radius: 12px; 
+        }
+        .card.income{
+            border-color: #81a969;
+            border-radius: 12px; 
+        }
+        .card h3{
+            text-align: center;
+            margin-top: 0
+        }
+        .card table{
+            width: 100%;
+            margin: 0.5rem 0;
+            border-collapse: collapse;
+            border: none;
+        }
+
+        .card td {
+            border-bottom: 1.5px solid #aaa; /* horizontal dividers */
+            border-right: 1.5px solid #aaa;  /* vertical dividers */
+            padding: 0.4rem 0.6rem;
+        }
+        .card td:last-child {
+            border-right: none;
+        }
+        .card tr:last-child td {
+            border-bottom: none;
+        }
+        .edit-btn{
+            display: block;
+            text-align: center;
+            font-weight: bold;
+            cursor: pointer;
+            
+        }
+        .categories {
+            border: 3px solid black;
+            border-radius: 25px;
+            padding: 1rem;
+            margin: 1rem auto;
+            max-width: 450px;
+            background: white;
+            font-size: 1.5rem;
+        }   
+
+        .categories h3 {
+            margin-top: 0;
+        }
+
+        .category-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .category {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .category button {
+            border: none;
+            background: none;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+
+        
+    </style>
 </head>
 <body>
     <div class="device-viewport">
@@ -12,6 +147,52 @@
         <header>
             <h1>Record</h1>
         </header>
+        <div class = "btns">
+            <button class = "expense-button" onclick = "newExpense()"> + Expense</button>
+            <button class = "income-button" onclick = "newIncome()"> + Income</button>
+            <div class = "form-popup" id = "myForm">
+        </div>
+        
+            
+        <div class = "cards">
+            <div class = "card expenses">
+                <h3>My Recurring Expenses</h3>
+                <table id = "expense-list">
+                    <tr><td>Rent</td><td>$1179</td><td>monthly</td></tr>
+                    <tr><td>Phone Bill</td><td>$20</td><td>monthly</td></tr>
+                    <tr><td>Netflix</td><td>$9.99</td><td>monthly</td></tr>
+                </table>
+                <div class="edit-btn" onclick="editExpenses()">Edit</div>
+            </div>
+
+            <div class = "card income">
+                <h3>My Recurring Income</h3>
+                <table id = "income-list">
+                    <tr><td>Rent</td><td>$1179</td><td>monthly</td></tr>
+                    <tr><td>Phone Bill</td><td>$20</td><td>monthly</td></tr>
+                </table>
+                <div class="edit-btn" onclick="editExpenses()">Edit</div>
+            </div>
+        </div>
+
+        
+
+        <div class="categories">
+            <h3>My Categories</h3>
+            <div class="category-list" id="category-list">
+              <div class="category"><button onclick="removeCategory(this)">✖</button>Groceries</div>
+              <div class="category"><button onclick="removeCategory(this)">✖</button>Clothing</div>
+              <div class="category"><button onclick="removeCategory(this)">✖</button>Dining Out</div>
+              <div class="category"><button onclick="removeCategory(this)">✖</button>Entertainment</div>
+              <div class="category"><button onclick="removeCategory(this)">✖</button>Dog</div>
+              <div class="category"><button onclick="removeCategory(this)">✖</button>Gas</div>
+
+            </div>
+            <div class="add-new" onclick="addCategory()">Add New</div>
+          </div>
+        
+        </div>
+
             <div class="tabbar">
                 <a href="home.html" class = "tablink">
                     <img src="icons/home.png" alt="Home Icon" class="tab-icon">
@@ -32,5 +213,8 @@
             </div>
         </div>
     </div>
+    <script>
+
+    </script>
 </body>
 </html>
