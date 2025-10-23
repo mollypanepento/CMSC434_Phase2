@@ -57,6 +57,10 @@
     background-color: #D3D3D3;
 }
 
+.tablink.active{
+  background-color: white;
+}
+
 h1{
   text-align: center;
 }
