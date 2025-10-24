@@ -1,37 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Track</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tracking</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
 
 </head>
 <body>
-    <div class="device-viewport">
-        <div class="device">
-            <header>
-                <h1>Track Expenses</h1>
-            </header>
-            <div class="tabbar">
-                <a href="home.html" class = "tablink">
-                    <img src="icons/home.png" alt="Home Icon" class="tab-icon">
-                    <div>Home</div>
-                </a>
-                <a href="planning.html" class = "tablink">
-                    <img src="icons/planning.png" alt="Planning Icon" class="tab-icon">
-                    <div>Plan</div>
-                </a>
-                <a href="recording.html" class = "tablink">
-                    <img src="icons/recording.png" alt="Recording Icon" class="tab-icon">
-                    <div>Record</div>
-                </a>
-                <a href="tracking.html" class = "tablink active">
-                    <img src="icons/tracking.png" alt="Tracking Icon" class="tab-icon">
-                    <div>Tracking</div>
-                </a>
-            </div>
-        </div>
-    </div>
+  <div class="device-viewport">
+    <div class="device">
+      <header>
+        <h1>Tracking</h1>
+      </header>
+
+      <div class="content">
+        <!-- Overview -->
+        <section class="planning-section">
+          <h2>Overview</h2>
+          <div class="goal-items">
+            <div class="goal-card">
+              <strong>Remaining</strong>
+              <span>$450</span>
+            </div>
+            <div class="goal-card">
+              <strong>Spent</strong>
+              <span>$1,050</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Savings goal -->
+        <section class="planning-section">
+          <h2>Savings Goal</h2>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 40%"></div>
+          </div>
+          <div class="progress-text">40% of goal reached</div>
+        </section>
+
+        <!-- Category breakdown -->
+        <section class="planning-section">
+          <h2>Category Breakdown</h2>
+
+          <div class="progress-section">
+            <div class="progress-item">
+              <div>Food — $320 / $400</div>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 80%"></div>
+              </div>
+              <div class="progress-text">80% used</div>
+            </div>
+
+            <div class="progress-item">
+              <div>Shopping — $250 / $200</div>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 100%"></div>
+              </div>
+              <div class="progress-text">Over budget</div>
+            </div>
+
+            <div class="progress-item">
+              <div>Transportation — $60 / $120</div>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 50%"></div>
+              </div>
+              <div class="progress-text">50% used</div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Bottom tabs -->
+      <div class="tabbar">
+    <a href="home.html" class="tablink">
+        <img src="icons/home.png" alt="Home Icon" class="tab-icon">
+        <div>Home</div>
+    </a>
+    <a href="planning.html" class="tablink">
+        <img src="icons/planning.png" alt="Planning Icon" class="tab-icon">
+        <div>Plan</div>
+    </a>
+    <a href="recording.html" class="tablink">
+        <img src="icons/recording.png" alt="Recording Icon" class="tab-icon">
+        <div>Record</div>
+    </a>
+    <a href="tracking.html" class="tablink active">
+        <img src="icons/tracking.png" alt="Tracking Icon" class="tab-icon">
+        <div>Tracking</div>
+    </a>
+</div>
+    </div>
+  </div>
 </body>
 </html>
