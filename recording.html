@@ -6,11 +6,10 @@
     <title>Record</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
     <style>
-        body{
-
-        }
         .device{
             text-align: center;
+            font-family: Arial, sans-serif;
+            position: relative;
         }
         .btns{
             display: flex;
@@ -21,12 +20,17 @@
         }
 
         .expense-button{
-            padding: 1rem;
-            font-size: 1.25rem;
-            background-color: #ff7d7d;
-            padding: 1rem;
-            margin-right: 2rem;
-            width: 200px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            padding: 0.75rem;
+            font-size: 1.75rem;
+            margin-right: 1rem;
+            margin-left: 1rem;
+            width: 42%; 
+            margin-right: 2rem; 
+            background-color: #D77A7D; 
         }
 
         .expense-button:hover {
@@ -34,14 +38,18 @@
         }
 
         .income-button{
+            border: none;
+            border-radius: 10px;
             padding: 1rem;
-            font-size: 1.25rem;
-            background-color: #81a969;
-            color: black;
-            margin-left: 2.5rem;
-            width: 200px;
-
+            cursor: pointer;
+            width: 42%;
+            font-weight: bold;
+            font-size: 1.75rem; 
+            margin-left: 1rem; 
+            margin-right: 1rem;
+            background-color: #81a969; 
         }
+        
 
         .income-button:hover {
             background-color: #c9d3b5;   /* darker on hover */
@@ -56,17 +64,35 @@
         }
 
         .card{
+            display: flex;
+            flex-direction: column;
             background: white;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
             border: 2px solid;
-            width: 250px;
-            padding: 1rem;
-            text-align: left;
-            border-radius: 4px;
+            width: 270px;
+            font-size: 1.75rem;
+        }
+
+        .card .edit-btn{
+            margin-top: auto;     
+            align-self: center;    
+            font-weight: bold;
+            cursor: pointer;
+            color: #333;
+            padding: 6px 12px;
+            background-color: #f0f0f0;
+            border-radius: 6px;
             font-size: 1.5rem;
+        }
+        .card .edit-btn:hover {
+            background-color: #ddd;
         }
 
         .card.expenses{
-            border-color: #ff7d7d;
+            border-color: #D77A7D;
             border-radius: 12px; 
         }
         .card.income{
@@ -82,8 +108,8 @@
             margin: 0.5rem 0;
             border-collapse: collapse;
             border: none;
+            font-size: 1.25rem;
         }
-
         .card td {
             border-bottom: 1.5px solid #aaa; /* horizontal dividers */
             border-right: 1.5px solid #aaa;  /* vertical dividers */
@@ -102,11 +128,22 @@
             cursor: pointer;
             
         }
+        table button {
+            border: none;
+            background: none;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        table button:hover {
+            background-color: #D77A7D;
+        }
         .categories {
-            border: 3px solid black;
-            border-radius: 25px;
-            padding: 1rem;
-            margin: 1rem auto;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            margin-top: 20px;
             max-width: 450px;
             background: white;
             font-size: 1.5rem;
@@ -136,8 +173,44 @@
             font-size: 1rem;
             cursor: pointer;
         }
-
-
+        .modal{
+            position: absolute;
+            display: flex;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            justify-content: center;
+            align-items: flex-start; 
+            padding-top: 75px;
+            font-family: Arial, sans-serif;
+        }
+        .modal.show{
+            display:flex;
+        }
+        .modal-content{
+            position: relative;
+            z-index: 1001; 
+            background-color: #fefefe;
+            margin: 0;
+            padding: 25px 30px;
+            border-radius: 10px;
+            width: 300px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        .modal-content .close {
+            position: absolute;
+            top: 10px;
+            left: 15px; /* change to left: 15px if you want it top-left */
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
         
     </style>
 </head>
@@ -147,48 +220,58 @@
         <header>
             <h1>Record</h1>
         </header>
-        <div class = "btns">
-            <button class = "expense-button" onclick = "newExpense()"> + Expense</button>
-            <button class = "income-button" onclick = "newIncome()"> + Income</button>
-            <div class = "form-popup" id = "myForm">
-        </div>
-        
-            
         <div class = "cards">
             <div class = "card expenses">
                 <h3>My Recurring Expenses</h3>
                 <table id = "expense-list">
-                    <tr><td>Rent</td><td>$1179</td><td>monthly</td></tr>
-                    <tr><td>Phone Bill</td><td>$20</td><td>monthly</td></tr>
-                    <tr><td>Netflix</td><td>$9.99</td><td>monthly</td></tr>
+                      <tbody></tbody>
                 </table>
-                <div class="edit-btn" onclick="editExpenses()">Edit</div>
+                <div class="edit-btn" id="expense-edit-btn" onclick="editExpenses()">Edit</div>
             </div>
 
             <div class = "card income">
                 <h3>My Recurring Income</h3>
                 <table id = "income-list">
-                    <tr><td>Rent</td><td>$1179</td><td>monthly</td></tr>
-                    <tr><td>Phone Bill</td><td>$20</td><td>monthly</td></tr>
+                      <tbody></tbody>
                 </table>
-                <div class="edit-btn" onclick="editExpenses()">Edit</div>
+                <div class="edit-btn" id="income-edit-btn" onclick="editIncomes()">Edit</div>
             </div>
         </div>
 
+        <div class = "btns">
+            <button class = "expense-button" onclick = "newExpense()"> + Expense</button>
+            <button class = "income-button" onclick = "newIncome()" > + Income </button>
+            <div class = "form-popup" id = "myForm">
+        </div>
+        
+            
+        
         
 
         <div class="categories">
             <h3>My Categories</h3>
             <div class="category-list" id="category-list">
-              <div class="category"><button onclick="removeCategory(this)">✖</button>Groceries</div>
-              <div class="category"><button onclick="removeCategory(this)">✖</button>Clothing</div>
-              <div class="category"><button onclick="removeCategory(this)">✖</button>Dining Out</div>
-              <div class="category"><button onclick="removeCategory(this)">✖</button>Entertainment</div>
-              <div class="category"><button onclick="removeCategory(this)">✖</button>Dog</div>
-              <div class="category"><button onclick="removeCategory(this)">✖</button>Gas</div>
+              <div class="category"><button onclick="removeCategory(this)">✖</button><span>Groceries</span></div>
+              <div class="category"><button onclick="removeCategory(this)">✖</button><span>Clothing</span></div>
+              <div class="category"><button onclick="removeCategory(this)">✖</button><span>Dining Out</span></div>
+              <div class="category"><button onclick="removeCategory(this)">✖</button><span>Entertainment</span></div>
+              <div class="category"><button onclick="removeCategory(this)">✖</button><span>Gas</span></div>
 
             </div>
-            <div class="add-new" onclick="addCategory()">Add New</div>
+            
+            <div style="text-align:center; margin-top:8px;">
+                <div id="add-new-toggle" class="add-new" onclick="toggleAddNew()">
+                    <button  class="btn-primary">Add New</button></div>
+            </div>
+
+            <div id="add-new" style="display:none; margin-top: 10px; text-align: center;">
+                <input id="new-category" placeholder="New category name"
+                    style="font-size: 16px; padding: 8px 12px; width: 250px;">
+                <button class="btn-primary" onclick="confirmAddCategory()"
+                    style="font-size: 16px; width: 15%;">Add</button>
+                <button class="btn-primary" onclick="cancelAddCategory()"
+                    style="font-size: 16px; width: 15%;">Cancel</button>
+            </div>
           </div>
         
         </div>
@@ -213,8 +296,306 @@
             </div>
         </div>
     </div>
-    <script>
+    <!-- Expense Modal -->
+    <div id = "expenseModal" class = "modal">
+        <div class = "modal-content">
+            <span class="close" onclick = "closeModal('expenseModal')">&times;</span>
+            <form id="expenseForm" onsubmit="saveExpense(event)">
+                <h2>Add Expense</h2>
 
+                <label>Name:</label>
+                <input type= "text" id = "expenseName" required>
+
+                <label for="floatInput">Amount:</label>
+                <input type="number" id = "expenseAmount" step="any" required>
+
+                <label>Date:</label>
+                <input type="date" id = "expenseDate" required>
+
+                <label>Category:</label>
+                <select id="expenseCategory"></select>
+
+                <label for="expenseRecurring">Recurring:</label>
+                    <select id="expenseRecurring">
+                        <option value="no">No</option>
+                        <option value="weekly">Weekly</option>
+                        <option value="biweekly">Biweekly</option>
+                        <option value="monthly">Monthly</option>
+                    </select>            
+
+                <label>Notes (optional):</label>
+                <input type= "text" id = "expenseNotes" placeholder="Notes...">
+
+                <div class="actions">
+                    <button class="btn-primary" type="submit"
+                    style="width:25%; font-size: 0.75rem;">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Income Modal-->
+    <div id = "incomeModal" class = "modal">
+        <div class = "modal-content">
+            <span class="close" onclick = "closeModal('incomeModal')">&times;</span>
+            
+            <h2>Add Income</h2>
+            <form id="incomeForm" onsubmit="saveIncome(event)">
+                <label>Name:</label>
+                <input type= "text" id = "incomeName" required>
+    
+                <label for="floatInput">Amount:</label>
+                <input type="number" id = "incomeAmount" step="any" required>
+    
+                <label>Date:</label>
+                <input type="date" id = "incomeDate" required>
+    
+                <label>Source</label>
+                <input type="text" id = "incomeSource">
+    
+                <label>Hours Spent Earning:</label>
+                <input type= "number" id = "incomeHours">
+    
+                <label for="incomeRecurring">Recurring:</label>
+                    <select id="incomeRecurring">
+                        <option value="no">No</option>
+                        <option value="weekly">Weekly</option>
+                        <option value="biweekly">Biweekly</option>
+                        <option value="monthly">Monthly</option>
+                    </select>   
+    
+                <div class="actions">
+                    <button class="btn-primary" type="submit"
+                    style="width:25%; font-size: 0.75rem;">Save</button>
+                </div>
+            </form>
+            
+        </div>
+    </div>
+    <script>
+        let expenses = [];
+        let incomes = [];
+        let editingExpenses = false;
+        let editingIncomes = false;
+        function editExpenses(){
+            editingExpenses = !editingExpenses;
+            populateExpenses();
+        }
+        function editIncomes(){
+            editingIncomes = !editingIncomes;
+            populateIncomes();
+        }
+        function loadFromLocal(){
+            const storedExpenses = localStorage.getItem("expenses");
+            if (storedExpenses) {
+                expenses = JSON.parse(storedExpenses).map(item => ({
+                    ...item,
+                    amount: Number(item.amount)
+                }));
+            } else {
+                expenses = [];
+            }
+
+            const storedIncomes = localStorage.getItem("incomes");
+            if (storedIncomes) {
+                incomes = JSON.parse(storedIncomes).map(item => ({
+                    ...item,
+                    amount: Number(item.amount)
+                }));
+            } else {
+                incomes = [];
+            }
+
+            populateExpenses();
+            populateIncomes();
+        }
+        function saveExpensesToStorage(){
+            localStorage.setItem("expenses", JSON.stringify(expenses.slice(-5)));
+        }
+        function saveIncomesToStorage(){
+            localStorage.setItem("incomes", JSON.stringify(incomes.slice(-5)));
+        }
+        function newExpense(){
+            populateCategories('expenseCategory');
+            document.getElementById('expenseModal').style.display = 'flex';
+        }
+        function newIncome(){
+            populateCategories('incomeCategory');
+            document.getElementById('incomeModal').style.display = 'flex';
+        }
+        function closeModal(id){
+            document.getElementById(id).style.display = 'none';
+        }
+        function populateCategories(selectId){
+            const nodes = document.querySelectorAll('.category-list .category span');
+            const categories = Array.from(nodes).map(n => n.textContent.trim()).filter(n => n.length);
+            const dropdown = document.getElementById(selectId);
+            if(!dropdown){
+                return;
+            }
+            dropdown.innerHTML = ""; // Clear existing options
+            categories.forEach(cat => {
+                const option = document.createElement("option");
+                option.value = cat;
+                option.textContent = cat;
+                dropdown.appendChild(option);
+            });
+        }
+        function updateAllCategoryDropdowns() {
+            populateCategories('expenseCategory');
+            populateCategories('incomeCategory');
+        }
+        function confirmAddCategory() {
+            const input = document.getElementById('new-category');
+            const val = (input.value || '').trim();
+            if (!val) {
+                alert('Please type a category name.');
+                return;
+            }
+            // create new category element
+            const list = document.getElementById('category-list');
+            const div = document.createElement('div');
+            div.className = 'category';
+            const btn = document.createElement('button');
+            btn.className = 'remove-cat';
+            btn.innerText = '✖';
+            btn.title = 'Remove category';
+            btn.onclick = function () { removeCategory(btn); };
+            const span = document.createElement('span');
+            span.textContent = val;
+            div.appendChild(btn);
+            div.appendChild(span);
+            list.appendChild(div);
+
+            input.value = '';
+            toggleAddNew(); // hide the add form
+            updateAllCategoryDropdowns();
+        }
+        function toggleAddNew() {
+            const form = document.getElementById('add-new');
+            const toggle = document.getElementById('add-new-toggle');
+            if (form.style.display === 'none' || form.style.display === '') {
+                form.style.display = 'block';
+                toggle.style.display = 'none';
+                document.getElementById('new-category').focus();
+            } else {
+                form.style.display = 'none';
+                toggle.style.display = 'block';
+            }
+        }
+        function cancelAddCategory(){
+            const form = document.getElementById('add-new')
+            const toggle = document.getElementById('add-new-toggle');
+            form.style.display = 'none';
+            toggle.style.display = 'block'
+            document.getElementById('new-category').value = '';
+        }
+        function saveExpense(){
+            const name = (document.getElementById('expenseName').value || '').trim()
+            const amountRaw = document.getElementById('expenseAmount').value;
+            const category = document.getElementById('expenseCategory').value;
+            const recurring = document.getElementById('expenseRecurring').value;
+            
+            const amount = parseFloat(amountRaw);
+            const expense = { name, amount, category, recurrence: recurring};
+
+            if(recurring !== 'no'){
+                expenses.push(expense);
+                if(expenses.length >5){
+                    expenses.shift();
+                }
+                saveExpensesToStorage();
+                populateExpenses();
+            }
+            closeModal('expenseModal');
+        }
+        
+        function saveIncome(){
+            const name = (document.getElementById('incomeName').value || '').trim()
+            const amountRaw = document.getElementById('incomeAmount').value;
+            const recurring = document.getElementById('incomeRecurring').value;
+            const source = document.getElementById('incomeSource').value;
+            const hours = document.getElementById('incomeHours').value;
+            
+            const amount = parseFloat(amountRaw);
+            const income = { name, amount, recurrence: recurring, source, hours};
+
+            if(recurring !== 'no'){
+                incomes.push(income);
+                if(incomes.length >5){
+                    incomes.shift();
+                }
+                saveIncomesToStorage();
+                populateIncomes();
+            }
+            closeModal('incomeModal');
+        }
+        function populateExpenses(){
+            const tbody = document.querySelector('#expense-list tbody');
+            const editBtn = document.getElementById('expense-edit-btn');
+            tbody.innerHTML = "";
+            if(editingExpenses){
+                editBtn.textContent = 'Done';
+            } else {
+                editBtn.textContent = 'Edit';
+            }
+            expenses.forEach((item, index) =>{
+                const tr = document.createElement('tr');
+                tr.innerHTML = 
+                    `<td>${item.name}</td>
+                    <td>$${item.amount.toFixed(2)}</td>
+                    <td>${item.recurrence}</td>
+                    ${editingExpenses ? `<td><button onclick="deleteExpense(${index})">✖</button></td>` : ''}`;
+                tbody.appendChild(tr);
+            });
+        }
+        function populateIncomes(){
+            const tbody = document.querySelector('#income-list tbody');
+            const editBtn = document.getElementById('income-edit-btn');
+            tbody.innerHTML = "";
+            if(editingIncomes){
+                editBtn.textContent = 'Done';
+            } else {
+                editBtn.textContent = 'Edit';
+            }
+            incomes.forEach((item, index) =>{
+                const tr = document.createElement('tr');
+                tr.innerHTML = 
+                    `<td>${item.name}</td>
+                    <td>${item.amount}</td>
+                    <td>${item.recurrence}</td>
+                    ${editingIncomes ? `<td><button onclick="deleteIncome(${index})">✖</button></td>` : ''}`;
+                tbody.appendChild(tr);
+            });
+        }
+        function deleteExpense(index){
+            expenses.splice(index, 1);
+            saveExpensesToStorage();
+            populateExpenses();
+        }
+        function deleteIncome(index){
+            incomes.splice(index, 1);
+            saveIncomesToStorage();
+            populateIncomes();
+        }
+        function removeCategory(buttonElement){
+            const categoryDiv = buttonElement.parentElement;
+            categoryDiv.remove();
+            updateAllCategoryDropdowns();
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            loadFromLocal();
+            // Keep modals closed
+            document.getElementById('expenseModal').style.display = 'none';
+            document.getElementById('incomeModal').style.display = 'none';
+        });
+
+            // ESC to close modals
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal('expenseModal');
+                closeModal('incomeModal');
+            }
+        });
     </script>
 </body>
 </html>
