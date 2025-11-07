@@ -73,7 +73,7 @@
             box-shadow: 0 2px 6px rgba(0,0,0,0.1);
             border: 2px solid;
             width: 270px;
-            font-size: 1.75rem;
+            font-size: 1.5rem;
         }
 
         .card .edit-btn{
@@ -120,6 +120,14 @@
         }
         .card tr:last-child td {
             border-bottom: none;
+        }
+        .card table.editing {
+            font-size: 1rem;  /* smaller than the default 1.25rem */
+        }
+
+        .card table.editing td {
+            font-size: 1rem;
+            padding: 0.3rem 0.4rem; /* optionally reduce padding too */
         }
         .edit-btn{
             display: block;
@@ -564,12 +572,16 @@
         }
         function populateExpenses(){
             const tbody = document.querySelector('#expense-list tbody');
+            const table = document.getElementById('expense-list');
             const editBtn = document.getElementById('expense-edit-btn');
             tbody.innerHTML = "";
             if(editingExpenses){
                 editBtn.textContent = 'Done';
+                table.classList.add('editing');
             } else {
                 editBtn.textContent = 'Edit';
+                table.classList.remove('editing');
+
             }
             expenses.forEach((item, index) =>{
                 const tr = document.createElement('tr');
@@ -583,12 +595,15 @@
         }
         function populateIncomes(){
             const tbody = document.querySelector('#income-list tbody');
+            const table = document.getElementById('income-list');
             const editBtn = document.getElementById('income-edit-btn');
             tbody.innerHTML = "";
             if(editingIncomes){
                 editBtn.textContent = 'Done';
+                table.classList.add('editing');
             } else {
                 editBtn.textContent = 'Edit';
+                table.classList.remove('editing');
             }
             incomes.forEach((item, index) =>{
                 const tr = document.createElement('tr');
