@@ -69,7 +69,7 @@
             background: white;
             border-radius: 12px;
             padding: 16px;
-            margin-bottom: 20px;
+            margin-bottom: 0px;
             box-shadow: 0 2px 6px rgba(0,0,0,0.1);
             border: 2px solid;
             width: 270px;
@@ -140,11 +140,11 @@
         }
         .categories {
             border-radius: 12px;
-            padding: 16px;
+            padding: 5px;
             margin-bottom: 20px;
             box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-            margin-top: 20px;
-            max-width: 450px;
+            margin-top: 10px;
+            max-width: 550px;
             background: white;
             font-size: 1.5rem;
         }   
@@ -158,7 +158,7 @@
             flex-wrap: wrap;
             justify-content: center;
             gap: 1rem;
-            margin: 1rem 0;
+            margin: 0.5rem 0;
         }
 
         .category {
@@ -206,9 +206,32 @@
         .modal-content .close {
             position: absolute;
             top: 10px;
-            left: 15px; /* change to left: 15px if you want it top-left */
+            left: 15px; 
             font-size: 24px;
             cursor: pointer;
+        }
+        .success-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #a8bfa9;
+            color: black;
+            padding: 20px 40px;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            z-index: 2000;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            font-family: Arial, sans-serif;
+            animation: fadeInOut 2s ease-in-out;
+        }
+        @keyframes fadeInOut {
+            0% { opacity: 0; }
+            15% { opacity: 1; }
+            85% { opacity: 1; }
+            100% { opacity: 0; }
         }
         
         
@@ -294,6 +317,7 @@
                     <div>Tracking</div>
                 </a>
             </div>
+            <div id="success-popup" class="success-popup"></div>
         </div>
     </div>
     <!-- Expense Modal -->
@@ -371,6 +395,7 @@
             
         </div>
     </div>
+    
     <script>
         let expenses = [];
         let incomes = [];
@@ -489,7 +514,9 @@
             toggle.style.display = 'block'
             document.getElementById('new-category').value = '';
         }
-        function saveExpense(){
+        function saveExpense(event){
+            event.preventDefault();
+
             const name = (document.getElementById('expenseName').value || '').trim()
             const amountRaw = document.getElementById('expenseAmount').value;
             const category = document.getElementById('expenseCategory').value;
@@ -505,11 +532,15 @@
                 }
                 saveExpensesToStorage();
                 populateExpenses();
+                showSuccessPopup('Expense added successfully!');
             }
+            document.getElementById('expenseForm').reset();
             closeModal('expenseModal');
         }
         
-        function saveIncome(){
+        function saveIncome(event){
+            event.preventDefault();
+
             const name = (document.getElementById('incomeName').value || '').trim()
             const amountRaw = document.getElementById('incomeAmount').value;
             const recurring = document.getElementById('incomeRecurring').value;
@@ -526,7 +557,9 @@
                 }
                 saveIncomesToStorage();
                 populateIncomes();
+                showSuccessPopup('Income added successfully!');
             }
+            document.getElementById('incomeForm').reset();
             closeModal('incomeModal');
         }
         function populateExpenses(){
@@ -561,7 +594,7 @@
                 const tr = document.createElement('tr');
                 tr.innerHTML = 
                     `<td>${item.name}</td>
-                    <td>${item.amount}</td>
+                    <td>$${item.amount.toFixed(2)}</td>
                     <td>${item.recurrence}</td>
                     ${editingIncomes ? `<td><button onclick="deleteIncome(${index})">✖</button></td>` : ''}`;
                 tbody.appendChild(tr);
@@ -581,6 +614,16 @@
             const categoryDiv = buttonElement.parentElement;
             categoryDiv.remove();
             updateAllCategoryDropdowns();
+        }
+        function showSuccessPopup(message) {
+            const popup = document.getElementById('success-popup');
+            popup.textContent = message;
+            popup.style.display = 'block';
+            
+            // Hide after 2 seconds
+            setTimeout(() => {
+                popup.style.display = 'none';
+            }, 2000);
         }
         document.addEventListener('DOMContentLoaded', function() {
             loadFromLocal();
