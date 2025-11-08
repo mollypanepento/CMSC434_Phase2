@@ -1,77 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Home</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Home</title>
   <link rel="stylesheet" type="text/css" href="styles.css">
+
+  <style>
+    .summary-row {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-top:6px;
+      font-size:1rem;
+    }
+    .summary-value {
+      font-weight:600;
+    }
+    .quick-actions {
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      margin-top:12px;
+    }
+    .quick-btn {
+      flex:1;
+      text-align:center;
+      padding:12px;
+      border-radius:10px;
+      font-weight:600;
+      cursor:pointer;
+      border:none;
+      font-size:1.05rem;
+      background:#a8bfa9;
+      color:black;
+    }
+    .quick-btn:hover { background:#91a793; }
+  </style>
 </head>
+
 <body>
-  <div class="device-viewport">
-    <div class="device">
-      <header>
-        <h1>Home</h1>
-      </header>
+  <div class="device-viewport">
+    <div class="device">
 
-      <div class="content">
-        <section class="planning-section">
-          <h2>Welcome!</h2>
-          <p>Quick links to your key pages:</p>
-          <div class="goal-items">
-            <a class="btn-primary" href="tracking.html">Open Tracking</a>
-            <a class="btn-primary" href="planning.html">Open Plan</a>
-            <a class="btn-primary" href="recording.html">Open Record</a>
-          </div>
-        </section>
+      <header><h1>Home</h1></header>
 
-        <section class="planning-section">
-          <h2>Upcoming Payments</h2>
-          <div class="goal-items">
-            <div class="goal-card">
-              <span>Rent due <strong>Oct 7</strong></span>
-              <button class="btn-primary" disabled>View</button>
-            </div>
-            <div class="goal-card">
-              <span>Credit Card <strong>Oct 15</strong></span>
-              <button class="btn-primary" disabled>View</button>
-            </div>
-            <div class="goal-card">
-              <span>Vacation Goal <strong>30%</strong></span>
-              <button class="btn-primary" disabled>View</button>
-            </div>
-          </div>
-        </section>
+      <div class="content" style="overflow-y:hidden;">
 
-        <section class="planning-section">
-          <h2>Recent Activity</h2>
-          <div class="goal-items">
-            <div class="goal-card">Oct 3: Groceries – $35.60</div>
-            <div class="goal-card">Oct 5: Paycheck + $160.00</div>
-            <div class="goal-card">Oct 2: Apple – $9.99</div>
-          </div>
-        </section>
-      </div>
+        <!-- Monthly Snapshot -->
+        <section class="planning-section">
+          <h2>Monthly Snapshot</h2>
+          <div class="summary-row">
+            <span>Remaining</span>
+            <span class="summary-value">$450 of $1,500</span>
+          </div>
+          <div class="summary-row">
+            <span>Spent</span>
+            <span class="summary-value">$1,050 (70%)</span>
+          </div>
 
-      <!-- Bottom tabs -->
-          <div class="tabbar">
-                <a href="home.html" class = "tablink active">
-                    <img src="icons/home.png" alt="Home Icon" class="tab-icon">
-                    <div>Home</div>
-                </a>
-                <a href="planning.html" class = "tablink">
-                    <img src="icons/planning.png" alt="Planning Icon" class="tab-icon">
-                    <div>Plan</div>
-                </a>
-                <a href="recording.html" class = "tablink">
-                    <img src="icons/recording.png" alt="Recording Icon" class="tab-icon">
-                    <div>Record</div>
-                </a>
-                <a href="tracking.html" class = "tablink">
-                    <img src="icons/tracking.png" alt="Tracking Icon" class="tab-icon">
-                    <div>Tracking</div>
-                </a>
-            </div>
-        </div>
+          <div class="progress-bar" style="margin-top:10px;">
+            <div class="progress-fill" style="width:70%"></div>
+          </div>
+          <div class="progress-text">70% of budget used</div>
+        </section>
+
+        <!-- Savings Overview -->
+        <section class="planning-section">
+          <h2>Savings Goal</h2>
+
+          <div class="summary-row">
+            <span>Saved</span>
+            <span class="summary-value">$600 / $1,500 (40%)</span>
+          </div>
+
+          <div class="progress-bar" style="margin-top:10px;">
+            <div class="progress-fill" style="width:40%"></div>
+          </div>
+          <div class="progress-text">40% to goal</div>
+        </section>
+
+        <!-- Quick Actions -->
+        <section class="planning-section">
+          <h2>Quick Actions</h2>
+          <div class="quick-actions">
+            <button class="quick-btn" onclick="window.location.href='recording.html'">+ Add Expense</button>
+            <button class="quick-btn" onclick="window.location.href='planning.html'">Adjust Plan</button>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- Bottom Tab Bar -->
+      <div class="tabbar">
+        <a href="home.html" class="tablink active">
+          <img src="icons/home.png" alt="Home Icon" class="tab-icon">
+          <div>Home</div>
+        </a>
+        <a href="planning.html" class="tablink">
+          <img src="icons/planning.png" alt="Planning Icon" class="tab-icon">
+          <div>Plan</div>
+        </a>
+        <a href="recording.html" class="tablink">
+          <img src="icons/recording.png" alt="Recording Icon" class="tab-icon">
+          <div>Record</div>
+        </a>
+        <a href="tracking.html" class="tablink">
+          <img src="icons/tracking.png" alt="Tracking Icon" class="tab-icon">
+          <div>Tracking</div>
+        </a>
+      </div>
+
     </div>
+  </div>
 </body>
 </html>
