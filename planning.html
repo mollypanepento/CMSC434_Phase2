@@ -49,14 +49,17 @@
                 <section class="goals-list">
                     <h2>Your Goals</h2>
                     <div id="goalContainer" class="goal-items">
-                        <!-- Goals will appear here dynamically -->
                     </div>
                 </section>
 
                 <section class="progress-section">
                     <h2>Progress Overview</h2>
+                    
                     <div class="progress-item">
-                        <p>Monthly Spending Goal</p>
+                        <div class="progress-header">
+                            <p>Monthly Spending Goal</p>
+                            <p class="progress-dollar">$450 / $1000</p>
+                        </div>
                         <div class="progress-bar">
                             <div class="progress-fill" style="width: 45%;"></div>
                         </div>
@@ -64,7 +67,10 @@
                     </div>
 
                     <div class="progress-item">
-                        <p>Savings Goal</p>
+                        <div class="progress-header">
+                            <p>Savings Goal</p>
+                            <p class="progress-dollar">$700 / $1000</p>
+                        </div>
                         <div class="progress-bar">
                             <div class="progress-fill" style="width: 70%; background-color: #4caf50;"></div>
                         </div>
@@ -73,24 +79,24 @@
                 </section>
             </main>
 
-            <div class="tabbar">
+            <nav class="tabbar">
                 <a href="home.html" class="tablink">
                     <img src="icons/home.png" alt="Home Icon" class="tab-icon">
-                    <div>Home</div>
+                    <span>Home</span>
                 </a>
                 <a href="planning.html" class="tablink active">
                     <img src="icons/planning.png" alt="Planning Icon" class="tab-icon">
-                    <div>Plan</div>
+                    <span>Plan</span>
                 </a>
                 <a href="recording.html" class="tablink">
                     <img src="icons/recording.png" alt="Recording Icon" class="tab-icon">
-                    <div>Record</div>
+                    <span>Record</span>
                 </a>
                 <a href="tracking.html" class="tablink">
                     <img src="icons/tracking.png" alt="Tracking Icon" class="tab-icon">
-                    <div>Tracking</div>
+                    <span>Tracking</span>
                 </a>
-            </div>
+            </nav>
         </div>
     </div>
 </body>
