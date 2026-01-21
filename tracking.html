@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tracking</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+
+  <style>
+    .planning-section{ margin-bottom:12px; }
+    .goal-card{ padding:8px 10px; }
+    .meta { color:#666; font-size:0.9rem; margin:4px 0 10px; }
+    .row { display:flex; justify-content:space-between; align-items:center; gap:8px; }
+    .right { text-align:right; }
+    .badge { font-size:.8rem; padding:2px 8px; border-radius:999px; background:#e8f5e9; }
+    .badge.over { background:#fdecea; }
+    .helper { font-size:0.9rem; color:#444; margin:6px 0 0; }
+    .helper.over { color:#b00020; font-weight:600; }
+    .btn-full { width:100%; margin-top:8px; }
+    .sheet-backdrop{
+      position:absolute; inset:0; background:rgba(0,0,0,.25);
+      display:none; align-items:flex-end; /* bottom sheet */
+      z-index:50;
+    }
+    .sheet{
+      background:#fff; width:100%; border-radius:16px 16px 0 0;
+      box-shadow:0 -8px 20px rgba(0,0,0,.2); padding:16px;
+      max-height:70%; overflow:auto;
+    }
+    .sheet h3{ margin:0 0 8px; }
+    .sheet .actions { display:flex; gap:10px; margin-top:12px; }
+    .sheet .actions .btn-primary{ flex:1; }
+    .mini { font-size:.85rem; color:#666; }
+  </style>
+</head>
+
+<body>
+  <div class="device-viewport">
+    <div class="device">
+      <header><h1>Tracking</h1></header>
+
+      <div class="content" id="contentRoot">
+        <!-- OVERVIEW -->
+        <section class="planning-section">
+          <h2>Overview</h2>
+          <div class="meta">This month • Budget $1,500</div>
+
+          <div class="goal-items">
+            <div class="goal-card row">
+              <strong>Remaining</strong>
+              <span class="right">$450 of $1,500</span>
+            </div>
+            <div class="goal-card row">
+              <strong>Spent</strong>
+              <span class="right">$1,050 / $1,500 (70%)</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- SAVINGS GOAL -->
+        <section class="planning-section">
+          <h2>Savings Goal</h2>
+          <div class="row mini" style="margin-bottom:4px;">
+            <span>Saved $600</span>
+            <span>$600 / $1,500 (40%)</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width:40%"></div>
+          </div>
+          <div class="row mini">
+            <span>0</span><span>Goal: $1,500</span>
+          </div>
+        </section>
+
+        <!-- CATEGORY BREAKDOWN -->
+        <section class="planning-section">
+          <h2>Category Breakdown</h2>
+
+          <!-- Food -->
+          <div class="progress-section" style="padding:10px;">
+            <div class="row">
+              <strong>Food</strong>
+              <div class="right">
+                <div>$320 / $400 (80%) <span class="badge">on track</span></div>
+              </div>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width:80%"></div>
+            </div>
+            <div class="helper">Remaining: $80</div>
+            <button class="btn-primary btn-full" onclick="openSheet('addExpenseSheet')">+ Add Expense</button>
+          </div>
+
+          <!-- Shopping -->
+          <div class="progress-section" style="padding:10px; margin-top:8px;">
+            <div class="row">
+              <strong>Shopping</strong>
+              <div class="right">
+                <div>$250 / $200 (125%) <span class="badge over">over</span></div>
+              </div>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width:100%"></div>
+            </div>
+            <div class="helper over">Over by: $50</div>
+            <button class="btn-primary btn-full" onclick="openSheet('editLimitSheet')">Adjust Category Limit</button>
+          </div>
+
+          <!-- Transportation -->
+          <div class="progress-section" style="padding:10px; margin-top:8px;">
+            <div class="row">
+              <strong>Transportation</strong>
+              <div class="right">
+                <div>$60 / $120 (50%) <span class="badge">on track</span></div>
+              </div>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width:50%"></div>
+            </div>
+            <div class="helper">Remaining: $60</div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Add Expense (DEEP TASK #1) -->
+      <div class="sheet-backdrop" id="addExpenseSheet" onclick="backdropClose(event)">
+        <div class="sheet" role="dialog" aria-labelledby="addExpTitle" onclick="event.stopPropagation()">
+          <h3 id="addExpTitle">Add Expense – Food</h3>
+          <div class="mini">Enter details, then Save.</div>
+
+          <form id="addExpenseForm">
+            <label>Amount ($)
+              <input type="number" min="0" step="0.01" value="15.00" required />
+            </label>
+            <label>Date
+              <input type="date" value="2025-10-03" required />
+            </label>
+            <label>Note
+              <input type="text" placeholder="e.g., Groceries – Trader Joe’s" />
+            </label>
+            <label>Category
+              <select>
+                <option selected>Food</option>
+                <option>Shopping</option>
+                <option>Transportation</option>
+              </select>
+            </label>
+            <div class="actions">
+              <button type="button" class="btn-primary" onclick="saveExpense()">Save</button>
+              <button type="button" class="btn-primary" style="background:#ddd;" onclick="closeSheet('addExpenseSheet')">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Edit Limit (DEEP TASK #2) -->
+      <div class="sheet-backdrop" id="editLimitSheet" onclick="backdropClose(event)">
+        <div class="sheet" role="dialog" aria-labelledby="editLimitTitle" onclick="event.stopPropagation()">
+          <h3 id="editLimitTitle">Adjust Category Limit – Shopping</h3>
+          <div class="mini">Current: $200 • Spent: $250</div>
+
+          <form id="editLimitForm">
+            <label>New Monthly Limit ($)
+              <input type="number" min="0" step="10" value="260" required />
+            </label>
+            <label>Reason (optional)
+              <input type="text" placeholder="e.g., holiday gifts" />
+            </label>
+            <div class="actions">
+              <button type="button" class="btn-primary" onclick="saveLimit()">Save</button>
+              <button type="button" class="btn-primary" style="background:#ddd;" onclick="closeSheet('editLimitSheet')">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Bottom tabs -->
+      <div class="tabbar">
+        <a href="home.html" class="tablink">
+          <img src="icons/home.png" alt="Home Icon" class="tab-icon"><div>Home</div>
+        </a>
+        <a href="planning.html" class="tablink">
+          <img src="icons/planning.png" alt="Planning Icon" class="tab-icon"><div>Plan</div>
+        </a>
+        <a href="recording.html" class="tablink">
+          <img src="icons/recording.png" alt="Recording Icon" class="tab-icon"><div>Record</div>
+        </a>
+        <a href="tracking.html" class="tablink active">
+          <img src="icons/tracking.png" alt="Tracking Icon" class="tab-icon"><div>Tracking</div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openSheet(id){ document.getElementById(id).style.display='flex'; }
+    function closeSheet(id){ document.getElementById(id).style.display='none'; }
+    function backdropClose(e){
+      if(e.currentTarget.classList.contains('sheet-backdrop')){ e.currentTarget.style.display='none'; }
+    }
+
+    function saveExpense(){
+      closeSheet('addExpenseSheet');
+      const helper = Array.from(document.querySelectorAll('.helper'))
+        .find(h => h.textContent.includes('Remaining: $80'));
+      if (helper) helper.textContent = 'Remaining: $65'; 
+      const fill = document.querySelectorAll('.progress-fill')[1];
+      if (fill) fill.style.width = '83%';
+      alert('Expense saved to Food.');
+    }
+
+    function saveLimit(){
+      closeSheet('editLimitSheet');
+      const shoppingRow = Array.from(document.querySelectorAll('.progress-section'))[1];
+      if (shoppingRow){
+        shoppingRow.querySelector('.right div').innerHTML = '$250 / $260 • 96% <span class="badge">on track</span>';
+        shoppingRow.querySelector('.progress-fill').style.width = '96%';
+        const helper = shoppingRow.querySelector('.helper');
+        helper.textContent = 'Remaining: $10';
+        helper.classList.remove('over');
+      }
+      alert('Shopping limit updated.');
+    }
+  </script>
+</body>
+</html>

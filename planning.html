@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planning</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="device-viewport">
+        <div class="device">
+            <header>
+                <h1>Budget Planning</h1>
+            </header>
+
+            <main class="content">
+                <section class="planning-section">
+                    <h2>Set Budget Goals</h2>
+                    <form id="budgetForm">
+                        <label for="budgetAmount">Monthly Budget ($):</label>
+                        <input type="number" id="budgetAmount" name="budgetAmount" placeholder="Enter amount" required>
+
+                        <label for="goalType">Goal Type:</label>
+                        <select id="goalType" name="goalType">
+                            <option value="spending">Spending Goal</option>
+                            <option value="saving">Saving Goal</option>
+                        </select>
+
+                        <label for="goalCategory">Category:</label>
+                        <select id="goalCategory" name="goalCategory">
+                            <option value="food">Food</option>
+                            <option value="transportation">Transportation</option>
+                            <option value="entertainment">Entertainment</option>
+                            <option value="savings">Savings</option>
+                            <option value="custom">Custom...</option>
+                        </select>
+
+                        <label for="goalPeriod">Goal Period:</label>
+                        <select id="goalPeriod" name="goalPeriod">
+                            <option value="weekly">Weekly</option>
+                            <option value="monthly" selected>Monthly</option>
+                        </select>
+
+                        <button type="submit" class="btn-primary">Add Goal</button>
+                    </form>
+                </section>
+
+                <section class="goals-list">
+                    <h2>Your Goals</h2>
+                    <div id="goalContainer" class="goal-items">
+                    </div>
+                </section>
+
+                <section class="progress-section">
+                    <h2>Progress Overview</h2>
+                  
+                    <div class="progress-item">
+                      <div class="progress-header">
+                        <strong>Monthly Spending Goal</strong>
+                        <span class="progress-dollar">$675 / $1,500 (45%)</span>
+                      </div>
+                      <div class="progress-bar">
+                        <div class="progress-fill" style="width: 45%;"></div>
+                      </div>
+                      <p class="progress-note">Remaining: $825</p>
+                    </div>
+                  
+                    <div class="progress-item">
+                      <div class="progress-header">
+                        <strong>Savings Goal</strong>
+                        <span class="progress-dollar">$1,050 / $1,500 (70%)</span>
+                      </div>
+                      <div class="progress-bar">
+                        <div class="progress-fill" style="width: 70%; background-color: #4caf50;"></div>
+                      </div>
+                      <p class="progress-note">Goal: $1,500</p>
+                    </div>
+                  </section>
+                  
+            </main>
+
+            <div class="tabbar">
+                <a href="home.html" class="tablink">
+                    <img src="icons/home.png" alt="Home Icon" class="tab-icon">
+                    <div>Home</div>
+                </a>
+                <a href="planning.html" class="tablink active">
+                    <img src="icons/planning.png" alt="Planning Icon" class="tab-icon">
+                    <div>Plan</div>
+                </a>
+                <a href="recording.html" class="tablink">
+                    <img src="icons/recording.png" alt="Recording Icon" class="tab-icon">
+                    <div>Record</div>
+                </a>
+                <a href="tracking.html" class="tablink">
+                    <img src="icons/tracking.png" alt="Tracking Icon" class="tab-icon">
+                    <div>Tracking</div>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
